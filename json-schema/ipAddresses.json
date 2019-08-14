@@ -1,8 +1,8 @@
 {
   "$id": "ipAddresses",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "IP Addresses",
   "description": "IP Address parameters and returned data.",
-  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "ipv4CIDR": {
       "type": "string",
