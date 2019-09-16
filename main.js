@@ -30,25 +30,89 @@ class IpAddress {
 
     // Initialize return arguments for callback
     let firstIpAddress = {
-        ipv4: null,
-        ipv6: null
+      ipv4: null,
+      ipv6: null
     };
     let callbackError = null;
 
     const cidr = new IPCIDR(cidrStr);
     const options = {
-        from: 1,
-        limit: 1
+      from: 1,
+      limit: 1
     };
 
     if (!cidr.isValid()) {
-        callbackError = `Error: Invalid CIDR '${cidrStr}' passed to method getFirstIpAddress.`;
+      callbackError = `Error: Invalid CIDR '${cidrStr}' passed to method getFirstIpAddress.`;
     } else {
-        [firstIpAddress.ipv4] = cidr.toArray(options);
-        firstIpAddress.ipv6 = getIpv4MappedIpv6Address(firstIpAddress.ipv4);
+      [firstIpAddress.ipv4] = cidr.toArray(options);
+      firstIpAddress.ipv6 = getIpv4MappedIpv6Address(firstIpAddress.ipv4);
     }
 
     return callback(firstIpAddress, callbackError);
+  }
+
+
+  /**
+   * Explains what arguments were passed for optional parameters.
+   * @param {string} myString
+   * @param {number} myNumber
+   * @param {boolean} myBoolean
+   * @param {array} myArray
+   * @param {object} myObject
+   * @param {string} myEnum
+   * @param {*} myAnyType
+   * @param {callback} callback - A callback function.
+   * @return {object} (passedArgumentsDetails)
+   */
+  checkOptionalParams(myString, myNumber, myBoolean, myArray, myObject, myEnum, myAnyType, callback) {
+
+    let callbackError = null;
+    let callbackData = {
+      "myString": null,
+      "myNumber": null,
+      "myBoolean": null,
+      "myArray": null,
+      "myObject": null,
+      "myEnum": null,
+      "myAnyType": null
+    };
+
+    if (typeof myString === 'undefined')
+      callbackData.myString = "Parameter myString is undefined.";
+    else
+      callbackData.myString = "Parameter myString has data type: " + typeof myString + " with value: '" + myString + "'";
+
+    if (typeof myNumber === 'undefined')
+      callbackData.myNumber = "Parameter myNumber is undefined.";
+    else
+      callbackData.myNumber = "Parameter myNumber has data type: " + typeof myNumber + " with value: '" + myNumber + "'";
+
+    if (typeof myBoolean === 'undefined')
+      callbackData.myBoolean = "Parameter myBoolean is undefined.";
+    else
+      callbackData.myBoolean = "Parameter myBoolean has data type: " + typeof myBoolean + " with value: '" + myBoolean + "'";
+
+    if (typeof myArray === 'undefined')
+      callbackData.myArray = "Parameter myArray is undefined.";
+    else
+      callbackData.myArray = "Parameter myArray has data type: " + typeof myArray + " with value: '" + myArray + "'";
+
+    if (typeof myObject === 'undefined')
+      callbackData.myObject = "Parameter myObject is undefined.";
+    else
+      callbackData.myObject = "Parameter myObject has data type: " + typeof myObject + " with value: '" + myObject + "'";
+
+    if (typeof myEnum === 'undefined')
+      callbackData.myEnum = "Parameter myEnum is undefined.";
+    else
+      callbackData.myEnum = "Parameter myEnum has data type: " + typeof myEnum + " with value: '" + myEnum + "'";
+
+    if (typeof myAnyType === 'undefined')
+      callbackData.myAnyType = "Parameter myAnyType is undefined.";
+    else
+      callbackData.myAnyType = "Parameter myAnyType has data type: " + typeof myAnyType + " with value: '" + myAnyType + "'";
+
+    return callback(callbackData, callbackError);
   }
 
 }
