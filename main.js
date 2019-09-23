@@ -36,15 +36,27 @@ class IpAddress {
     let callbackError = null;
 
     const cidr = new IPCIDR(cidrStr);
-    const options = {
+    // When a proper CIDR is passed, the host IP is the second IP address in the range.
+    const toArrayOptions = {
       from: 1,
+      limit: 1
+    };
+    // When an address and no subnet is passed, infer a /32.
+    // The host IP is the first and only IP address in the range.
+    const toArrayOptionsNoSubnet = {
+      from: 0,
       limit: 1
     };
 
     if (!cidr.isValid()) {
+      log.info(`Error: Invalid CIDR '${cidrStr}' passed to method getFirstIpAddress.`)
       callbackError = `Error: Invalid CIDR '${cidrStr}' passed to method getFirstIpAddress.`;
     } else {
-      [firstIpAddress.ipv4] = cidr.toArray(options);
+      if (cidrStr.indexOf('/') === -1) {
+        // A subnet length wasn't passed. Infer a /32 was intended.
+        [firstIpAddress.ipv4] = cidr.toArray(toArrayOptionsNoSubnet);
+      } else
+        [firstIpAddress.ipv4] = cidr.toArray(toArrayOptions);
       firstIpAddress.ipv6 = getIpv4MappedIpv6Address(firstIpAddress.ipv4);
     }
 
