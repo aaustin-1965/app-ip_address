@@ -126,5 +126,22 @@
       "task": true
     }
   ],
-  "views": []
+  "views": [
+    {
+      "path": "/ManualFirstIpAddress",
+      "deprecated": false,
+      "roles": ["admin", "engineering", "support", "operations"],
+      "template": "tasks/ManualFirstIpAddress/view.html",
+      "title": "Manually Get First IP Address",
+      "type": "task",
+      "variables": {
+        "incoming": {
+          "cidrStr": "string"
+        },
+        "outgoing": {
+          "ipAddressData": "object"
+        }
+      }
+    }
+  ]
 }
