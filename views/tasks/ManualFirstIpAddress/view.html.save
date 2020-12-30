@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+    <md-dialog aria-label="Manual IAP task">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Manual IP Address</h2>
+          <span flex></span>
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <form name="cidrForm">
+          <h1>CIDR Form</h1>
+          <p>Required fields are marked by <abbr title="required" aria-label="required">*</abbr>.</p>
+          <section>
+            <md-input-container>
+              <p>
+                <label for="cidrInput">CIDR String: <abbr title="required" aria-label="required">*</abbr></label>
+                <input type="text"
+                    id="cidrInput"
+                    name="cidrStr"
+                    ng-model="cidrStr"
+                    required
+                    placeholder="ex. 10.10.10.0/24"
+                    minlength="9"
+                    md-maxlength="18"
+                    ng-pattern=cidrRegex>
+              </p>
+              <p>
+                <div ng-messages="cidrForm.cidrStr.$error">
+                  <div ng-message="required" class="ng-animate"
+                    ng-show="cidrForm.cidrStr.$error.required">Required</div>
+                  <div ng-message="minlength" class="ng-animate"
+                    ng-show="cidrForm.cidrStr.$error.minlength">Too short.</div>
+                  <div ng-message="md-maxlength" class="ng-animate"
+                    ng-show="cidrForm.cidrStr.$error.md-maxlength">Too long.</div>
+                  <div ng-message="pattern" class="ng-animate"
+                    ng-show="cidrForm.cidrStr.$error.pattern">Must be a valid IPv4 CIDR</div>
+                </div>
+              </p>
+            </md-input-container>
+            <p>
+              <pre>cidrForm.cidrStr.$error = {{ cidrForm.cidrStr.$error | json }}</pre>
+            </p>
+          </section>
+        </form>
+      </md-dialog-content>
+      <md-dialog-actions>
+        <span flex></span>
+        <md-button class="md-raised" ng-click="cancelDialog()">&#x274c; Cancel</md-button>
+        <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="!cidrForm.cidrStr.$valid">&#x2705; Submit</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+  </body>
+</html>

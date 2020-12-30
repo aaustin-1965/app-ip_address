@@ -1,0 +1,52 @@
+
+
+/**
+ * AngularJS controller function.
+ * @param {object} variables - An object carrying the IAP manual task's arguments.
+ * @param {object} variables.incoming - Tasks's arguments.
+ * @param {string} variables.incoming.cidrStr - An IPv4 subnet in CIDR notation (X.X.X.X/YY).
+ * @param {string} finish_state - No longer used.
+ * @param {object} $scope - [AngularJS built-in $scope object]{@link https://code.angularjs.org/1.5.3/docs/guide/scope}
+ *                          used to transfer data from the
+ *                          controller to the view and visa-versa.
+ * @param {object} $http - [AngularJS $http service]{@link https://code.angularjs.org/1.5.3/docs/api/ng/service/$http}
+ *                         used to send or receive data
+ *                         from remote server using browser's XMLHttpRequest (XHR)
+ *                         or JSONP.
+ * @param {object} $mdDialog - [AngularJS Material's $mdDialog service]{@link https://material.angularjs.org/1.0.7/api/service/$mdDialog}.
+ *                             Opens a dialog over the app to inform users about
+ *                             critical information or require them to make decisions.
+ */
+function TaskController(variables, finish_state, $scope, $http, $mdDialog) {
+  cidrRegex = /^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]))[/]([0-9]|[1-2][0-9]|3[0-2])$/;
+  $scope.cidrRegex = new RegExp(cidrRegex);
+  $scope.cidrStr = ( variables.incoming.cidrStr ? variables.incoming.cidrStr : "" );
+  let returnedData = {
+    ipAddressData: null
+  };
+  let finishState = 'error';
+
+  Object.keys(variables).forEach((key, index) => {
+      console.log(key, variables[key]);
+  });
+
+  $scope.cancelDialog = function() {
+      $mdDialog.cancel();
+  }
+
+  $scope.submit = function() {
+    returnedData.ipAddressData = {
+      youEntered: $scope.cidrStr
+    };
+    finishState = 'success';
+    $mdDialog.hide({
+      finish_state: finishState,
+      variables: returnedData,
+    });
+  };
+}
+
+module.exports = function() {
+  this.TaskController = TaskController;
+};
+

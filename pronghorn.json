@@ -54,92 +54,35 @@
         "apiread"
       ],
       "task": true
-    },
-    {
-      "name": "checkOptionalParams",
-      "deprecated": false,
-      "summary": "What Was Passed",
-      "description": "Explains what arguments were passed for optional parameters",
-      "input": [
-        {
-          "name": "myString",
-          "description": "An optional string.",
-          "type": "string",
-          "required": false
-        },
-        {
-          "name": "myNumber",
-          "description": "An optional number.",
-          "type": "number",
-          "required": false
-        },
-        {
-          "name": "myBoolean",
-          "description": "An optional boolean.",
-          "type": "boolean",
-          "required": false
-        },
-        {
-          "name": "myArray",
-          "description": "An optional array.",
-          "type": "array",
-          "required": false
-        },
-        {
-          "name": "myObject",
-          "description": "An optional object.",
-          "type": "object",
-          "required": false
-        },
-        {
-          "name": "myEnum",
-          "description": "An optional enumerator.",
-          "type": "enum",
-          "enumerals": [
-            "apple",
-            "orange"
-          ],
-          "required": false
-        },
-        {
-          "name": "myAnyType",
-          "description": "An optional parameter of any data type.",
-          "type": "*",
-          "required": false
-        }
-      ],
-      "output": {
-        "name": "passedArgumentsDetails",
-        "description": "Details on the passed arguments.",
-        "type": "object"
-      },
-      "route": {
-        "path": "/checkOptionalParams",
-        "verb": "POST"
-      },
-      "roles": [
-        "admin",
-        "engineering",
-        "support",
-        "apiread"
-      ],
-      "task": true
     }
   ],
   "views": [
     {
-      "path": "/ManualFirstIpAddress",
+      "path": "/task/ManualFirstIpAddress",
       "deprecated": false,
-      "roles": ["admin", "engineering", "support", "operations"],
+      "roles": [
+        "admin",
+        "engineering",
+        "support",
+        "operations"
+      ],
       "template": "tasks/ManualFirstIpAddress/view.html",
-      "title": "Manually Get First IP Address",
+      "title": "Get First IP Address",
       "type": "task",
       "variables": {
         "incoming": {
-          "cidrStr": "string"
+          "cidrStr": {
+            "required": false,
+            "type": "string",
+            "info": "An IPv4 subnet in CIDR notation (X.X.X.X/YY)",
+            "schema": {
+              "title": "cidrStr",
+              "$ref": "ipAddresses#/definitions/ipv4CIDR"
+            }
+          }
         },
         "outgoing": {
-          "ipAddressData": "object"
+          "ipAddressData": null
         }
       }
     }
