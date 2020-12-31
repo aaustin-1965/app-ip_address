@@ -29,7 +29,7 @@
                    ng-pattern=cidrRegex>
           </p>
           <p>
-            <div ng-messages="cidrForm.cidrStr.$error" ng-show="cidrForm.cidrStr.$dirty" class="ng-active ng-animate ng-hide-animate" data-ng-animate="2">
+            <div ng-messages="cidrForm.cidrStr.$error" ng-show="cidrForm.cidrStr.$dirty" class="ng-active ng-animate ng-hide-animate">
               <div ng-message="required"  ng-show="cidrForm.cidrStr.$error.required" >Required</div>
               <div ng-message="minlength" ng-show="cidrForm.cidrStr.$error.minlength">Too short.</div>
               <div ng-message="maxlength" ng-show="cidrForm.cidrStr.$error.maxlength">Too long.</div>
